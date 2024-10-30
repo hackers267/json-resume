@@ -423,6 +423,7 @@ pub struct Project {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[cfg_attr(feature = "validate", derive(Validate))]
 pub struct Feature {
+	pub name: String,
 	pub situation: String,
 	pub task: String,
 	pub action: String,
