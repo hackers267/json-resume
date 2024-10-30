@@ -388,6 +388,12 @@ pub struct Project {
 	pub description: Option<String>,
 	/// Specify multiple features
 	pub highlights: Vec<Highlight>,
+	/// Specity multiple duty
+	pub duties: Vec<Duty>,
+	/// Specity multiple profit
+	pub profits: Vec<Profit>,
+	/// Specity multiple feature
+	pub features: Vec<Feature>,
 	/// Specify special elements involved
 	pub keywords: Vec<Keyword>,
 	#[serde(rename = "startDate")]
@@ -414,6 +420,34 @@ pub struct Project {
 	pub r#type: Option<String>,
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "validate", derive(Validate))]
+pub struct Feature {
+	pub situation: String,
+	pub task: String,
+	pub action: String,
+	pub result: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "validate", derive(Validate))]
+pub struct Duty(pub String);
+
+impl fmt::Display for Duty {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(f, "{}", self.0)
+	}
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "validate", derive(Validate))]
+pub struct Profit(pub String);
+
+impl fmt::Display for Profit {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(f, "{}", self.0)
+	}
+}
 /// e.g. `Team Lead`, `Speaker`, `Writer`
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[cfg_attr(feature = "validate", derive(Validate))]
