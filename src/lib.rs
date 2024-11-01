@@ -38,30 +38,44 @@ use std::fmt;
 #[cfg_attr(feature = "validate", derive(Validate))]
 #[serde(default)]
 pub struct Resume {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub basics: Option<Basics>,
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub work: Vec<Work>,
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub volunteer: Vec<Volunteer>,
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub education: Vec<Education>,
 	/// Specify any awards you have received throughout your professional career
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub awards: Vec<Award>,
 	/// Specify any certificates you have received throughout your professional career
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub certificates: Vec<Certificate>,
 	/// Specify your publications through your career
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub publications: Vec<Publication>,
 	/// List out your professional skill-set
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub skills: Vec<Skill>,
 	/// List any other languages you speak
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub languages: Vec<Language>,
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub interests: Vec<Interest>,
 	/// List references you have received
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub references: Vec<Reference>,
 	/// Specify career projects
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub projects: Vec<Project>,
 	/// Specify side projects
 	#[cfg(feature = "side-projects")]
 	#[serde(rename = "sideProjects")]
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub side_projects: Vec<Project>,
 	/// The schema version and any other tooling configuration lives here
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<Meta>,
 }
 
@@ -69,23 +83,31 @@ pub struct Resume {
 #[cfg_attr(feature = "validate", derive(Validate))]
 #[serde(default)]
 pub struct Basics {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
 	/// e.g. `Web Developer`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub label: Option<String>,
 	/// URL (as per RFC 3986) to a image in JPEG or PNG format
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub image: Option<String>,
 	/// e.g. `thomas@gmail.com`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub email: Option<String>,
 	/// Phone numbers are stored as strings so use any format you like, e.g. 712-117-2923
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub phone: Option<String>,
 	/// URL (as per RFC 3986) to your website.
 	///
 	/// e.g. `https://my-blog.space`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
 	/// Write a short 2-3 sentence biography about yourself
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub summary: Option<String>,
 	pub location: Location,
 	/// Specify any number of social networks that you participate in
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub profiles: Vec<Profile>,
 }
 
@@ -96,16 +118,21 @@ pub struct Location {
 	/// To add multiple address lines, use `\n`.
 	///
 	/// e.g. `1234 Glücklichkeit Straße\nHinterhaus 5. Etage li.`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub address: Option<String>,
 	#[serde(rename = "postalCode")]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub postal_code: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub city: Option<String>,
 	/// code as per ISO-3166-1 ALPHA-2.
 	///
 	/// e.g. `US`, `AU`, `IN`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(rename = "countryCode")]
 	pub country_code: Option<String>,
 	/// The general region where you live. Can be a US state, or a province, for instance.
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub region: Option<String>,
 }
 
@@ -127,30 +154,39 @@ pub struct Profile {
 #[serde(default)]
 pub struct Work {
 	/// e.g. `Facebook`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
 	/// e.g. `Menlo Park, CA`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub location: Option<String>,
 	/// e.g. `Social Media Company`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub description: Option<String>,
 	/// Specify multiple positions each with a data range.
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub positions: Vec<Position>,
 	/// e.g. `Software Engineer`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub position: Option<String>,
 	/// e.g. `http://facebook.example.com`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
 	#[serde(rename = "startDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_date: Option<String>,
 	#[serde(rename = "endDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_date: Option<String>,
 	/// Specify multiple accomplishments
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub highlights: Vec<Highlight>,
 }
 
@@ -165,12 +201,14 @@ pub struct Position {
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_date: Option<String>,
 	#[serde(rename = "endDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_date: Option<String>,
 }
 
@@ -190,26 +228,33 @@ impl fmt::Display for Highlight {
 #[serde(default)]
 pub struct Volunteer {
 	/// e.g. `Facebook`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub organization: Option<String>,
 	/// e.g. `Software Engineer`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub position: Option<String>,
 	/// e.g. `http://facebook.example.com`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
 	#[serde(rename = "startDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_date: Option<String>,
 	#[serde(rename = "endDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_date: Option<String>,
 	/// Give an overview of your responsibilities at the company
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub summary: Option<String>,
 	/// Specify multiple accomplishments
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub highlights: Vec<Highlight>,
 }
 
@@ -218,34 +263,43 @@ pub struct Volunteer {
 #[serde(default)]
 pub struct Education {
 	/// e.g. `Massachusetts Institute of Technology`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub institution: Option<String>,
 	/// e.g. `http://facebook.example.com`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
 	/// List of degrees or certificates awarded by this institution.
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub degrees: Vec<String>,
 	/// e.g. `Arts`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub area: Option<String>,
 	/// e.g. `Bachelor`
 	#[serde(rename = "studyType")]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub study_type: Option<String>,
 	#[serde(rename = "startDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_date: Option<String>,
 	#[serde(rename = "endDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_date: Option<String>,
 	/// Grade point average.
 	///
 	/// e.g. `3.67/4.0`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub score: Option<String>,
 	/// List notable courses/subjects
 	#[serde(default)]
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub courses: Vec<Course>,
 }
 
