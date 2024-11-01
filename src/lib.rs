@@ -163,7 +163,7 @@ pub struct Work {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub description: Option<String>,
 	/// Specify multiple positions each with a data range.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub positions: Vec<Position>,
 	/// e.g. `Software Engineer`
 	#[serde(skip_serializing_if = "Option::is_none")]
