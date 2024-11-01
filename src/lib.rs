@@ -380,10 +380,13 @@ pub struct Publication {
 #[serde(default)]
 pub struct Skill {
 	/// e.g. `Web Development`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
 	/// e.g. `Master`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub level: Option<String>,
 	/// List some keywords pertaining to this skill
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub keywords: Vec<Keyword>,
 }
 
@@ -424,8 +427,10 @@ pub struct Interest {
 #[serde(default)]
 pub struct Reference {
 	/// e.g. `Timothy Cook`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
 	/// e.g. `Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing.`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reference: Option<String>,
 }
 
@@ -455,22 +460,28 @@ pub struct Project {
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_date: Option<String>,
 	#[serde(rename = "endDate")]
 	#[cfg_attr(
 		feature = "validate",
 		validate(pattern = r"^([1-2][0-9]{3}(-[0-1][0-9](-[0-3][0-9])?)?)$")
 	)]
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_date: Option<String>,
 	/// e.g. `http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html`
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
 	/// Specify your role on this project or in company
+	#[serde(skip_serializing_if = "Vec::is_empty")]
 	pub roles: Vec<Role>,
 	/// Specify the relevant company/entity affiliations.
 	///
 	/// e.g. 'greenpeace', 'corporationXYZ'
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub entity: Option<String>,
 	/// e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub r#type: Option<String>,
 }
 
